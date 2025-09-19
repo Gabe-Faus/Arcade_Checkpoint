@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" href="{{ url_for('static', filename='AC_logo.jpeg') }}">
+    <title>Arcade Checkpoint</title>
+    <style>
+
+        .body{
+            background-color: rgb(225, 225, 225);
+            margin: 0;
+            padding: 0;
+        }
+        
+        .logo{
+            width: 80px;
+            height: auto;
+            /* corres presentes na logo #ee8521, #0c0806, #945420, #8c643c, #865434*/
+        }
+
+        .box{
+            width: 100%;
+            background-color: black;
+            padding: 10px;
+            align-items: center;
+            gap: 10px;
+            display: flex;
+            border: 2px;
+            box-sizing: border-box;
+        }
+
+        .textbox{
+            color: aliceblue;
+            font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+            font-weight: bold;
+        }
+
+        .search_bar{
+            margin-left: 200px;
+            padding: 10px;
+            width: 500px;
+            border: 1px solid #ccc;
+            font-size: 16px;
+            outline: none;
+        }
+
+        .button_login,
+        .button_signup {
+            display: inline-block;
+            margin-left: 10px; /* espaço entre eles */
+            background-color: #ee8521;
+            border: none;
+            border-radius: 10px;
+            height: 0.75cm;
+            color: black;
+        }
+
+        .button_login:hover, 
+        .button_signup:hover {
+            background-color: #aabdab; /* Cor de fundo ao passar o mouse */
+        }
+
+        .button_container {
+            display: flex;
+            gap: 20px; /* espaço entre os botões */
+            margin-left: 300px;
+        }
+
+        .square{
+            background-color: rgb(170, 161, 148);
+            padding: 10px;
+            width: 90%;
+            height: 7cm;
+            margin-left: 60px;
+            margin-top: 100px;
+        }
+
+        .textsquare{
+            color: black;
+            font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+            font-size: larger;
+            margin-top: 5px;
+            margin-left: 5px;
+        }
+    </style>
+</head>
+<body class="body">
+    <div class="box">
+        <img src="{{ url_for('static', filename='AC_logo.jpeg') }}" alt="Logo ARCADE CHECKPOINY" class="logo">
+        <p class="textbox">ARCADE CHECKPOINT</p>
+        <input type="search" class="search_bar" placeholder="What game are you looking for?" >
+        <div class="button_container">
+            <input type="button" class="button_login" value="Log in" onclick="window.location.href='{{ url_for('login') }}'">
+            <input type="button" class="button_signup" value="Sign up" onclick="window.location.href='{{ url_for('Sign_up') }}'">
+        </div>
+        
+    </div>
+
+    <div class="square"><p class="textsquare">Folk's Favorite</p></div>
+    
+</body>
+</html>
