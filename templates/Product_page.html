@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Product</title>
+    <link rel="shortcut icon" href="{{ url_for('static', filename='AC_logo.jpeg') }}">
+    <style>
+
+        .body{
+            background-color: rgb(225, 225, 225);
+            margin: 0;
+            padding: 0;
+        }
+        
+        .logo{
+            width: 80px;
+            height: auto;
+            /* corres presentes na logo #ee8521, #0c0806, #945420, #8c643c, #865434*/
+        }
+
+        .box{
+            width: 100%;
+            background-color: black;
+            padding: 10px;
+            align-items: center;
+            gap: 10px;
+            display: flex;
+            border: 2px;
+            box-sizing: border-box;
+        }
+
+        .textbox{
+            color: aliceblue;
+            font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+            font-weight: bold;
+        }
+
+        .search_bar{
+            margin-left: 200px;
+            padding: 10px;
+            width: 500px;
+            border: 1px solid #ccc;
+            font-size: 16px;
+            outline: none;
+        }
+
+        .back_button {
+            display: inline-block;
+            margin-left: 200px; /* espaço entre eles */
+            background-color: #ee8521;
+            border: none;
+            border-radius: 10px;
+            height: 0.75cm;
+            color: black;
+        }
+
+        .back_button:hover {
+            background-color: #aabdab; /* Cor de fundo ao passar o mouse */
+        }
+
+        .button_container {
+            display: flex;
+            gap: 20px; /* espaço entre os botões */
+            margin-left: 300px;
+        }
+
+        .info_box{
+            background-color: rgb(170, 161, 148);
+            width: 15cm;
+            height: 10cm;
+            display: flex;
+            margin-left: 2cm;
+            margin-top: 0.4cm;
+        }
+
+        .infos{
+            margin-left: 1cm;
+            font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+        }
+
+        .img_box{
+            display: flex;
+            width: 15cm;
+            height: 15cm;
+            margin-top: 0.5cm;
+            margin-left: 1cm;
+        }
+
+        .product_container {
+            display: flex;         
+            align-items: flex-start; 
+            gap: 2cm;               
+            margin-top: 0.25cm;
+            margin-left: 2cm;
+        }
+
+        .buy_button{
+            background-color: darkgreen;
+            width: 5cm;
+            border: none;
+            display: inline-block;
+            border-radius: 10px;
+            height: 0.75cm;
+            color: beige;
+            margin-left: 4cm;
+            margin-top: 2cm;
+            
+        }
+
+        .buy_button:hover{
+            background-color: green;
+        }
+
+    </style>
+</head>
+<body class="body">
+    <div class="box">
+
+        <img src="{{ url_for('static', filename='AC_logo.jpeg') }}" alt="Logo ARCADE CHECKPOINY" class="logo">
+        <p class="textbox">ARCADE CHECKPOINT</p>
+        <input type="search" class="search_bar" placeholder="What game are you looking for?                                              &#128270" >
+        <div class="button_container">
+            <input type="button" class="back_button" value="&#8617" onclick="window.location.href=' {{ url_for('home_page')}} '">
+        </div>
+        
+    </div>
+
+    <div class="product_container">
+        <div class="img_box">
+            <img src="{{ url_for('static', filename=game_title) }}" alt=game_title>
+        </div>
+
+        <div class="info_box">
+            <div class="infos">
+                <h1>{{ product[1] }}</h1>
+                <p>Genre: {{ product[2] }}</p>
+                <p>Plataform: {{ product[3] }}</p>
+                <p>Game Mode: {{ product[4] }}</p>
+                <p>Price: $ {{ "%.2f"|format(product[5]) }}</p>
+                <p>
+                    Rating: 
+                    {% for _ in range(product[6]|round(0, 'floor')|int) %}
+                        &#9733;
+                    {% endfor %}
+                    {% for _ in range(5 - (product[6]|round(0, 'floor')|int)) %}
+                        &#9734;
+                    {% endfor %}
+                    ({{ product[6] }}/5.00)
+                </p>
+
+
+                <input type="button" class="buy_button" onclick="" value="Buy Now">
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>

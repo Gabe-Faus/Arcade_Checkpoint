@@ -45,10 +45,62 @@
             outline: none;
         }
 
-        .button_login,
-        .button_signup {
+        .textsquare {
+            color: beige;
+            font-size: large;
+            font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+            margin-left: 550px;
+            font-weight: bold;
+        }
+
+        .square {
+            background-color: rgb(225, 225, 225);
+            padding: 20px;
+            width: 95%;
+            margin: 70px auto;
+            position: relative;
+            overflow: hidden;
+            
+        }
+
+        .carousel {
+            display: flex;
+            transition: transform 0.5s ease;
+        }
+
+        .carousel-item {
+            min-width: 295px;
+            margin-right: 20px;
+            background: rgb(170, 161, 148);
+            overflow: hidden;
+            text-align: left;
+            padding: 5px;
+            margin-left: 0.5cm;
+        }
+
+        .carousel-item img {
+            width: 100%;
+            height: 300px;
+            object-fit: cover;
+        }
+
+        .game-info {
+            padding: 2px;
+        }
+
+        .price {
+            font-weight: bold;
+            font-size: larger;
+            color: rgb(0, 0, 0);
+            display: block;
+            text-align: right;
+            margin-top: 15px;
+            padding: 5px;
+        }
+
+        .logOut_button {
             display: inline-block;
-            margin-left: 10px; /* espaço entre eles */
+            margin-left: 400px; /* espaço entre eles */
             background-color: #ee8521;
             border: none;
             border-radius: 10px;
@@ -56,48 +108,66 @@
             color: black;
         }
 
-        .button_login:hover, 
-        .button_signup:hover {
+        .logOut_button:hover {
             background-color: #aabdab; /* Cor de fundo ao passar o mouse */
         }
 
-        .button_container {
-            display: flex;
-            gap: 20px; /* espaço entre os botões */
-            margin-left: 300px;
-        }
 
-        .square{
-            background-color: rgb(170, 161, 148);
-            padding: 10px;
-            width: 90%;
-            height: 7cm;
-            margin-left: 60px;
-            margin-top: 100px;
-        }
-
-        .textsquare{
-            color: black;
-            font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
-            font-size: larger;
-            margin-top: 5px;
-            margin-left: 5px;
-        }
     </style>
 </head>
 <body class="body">
     <div class="box">
         <img src="{{ url_for('static', filename='AC_logo.jpeg') }}" alt="Logo ARCADE CHECKPOINY" class="logo">
         <p class="textbox">ARCADE CHECKPOINT</p>
-        <input type="search" class="search_bar" placeholder="What game are you looking for?" >
-        <div class="button_container">
-            <input type="button" class="button_login" value="Log in" onclick="window.location.href='{{ url_for('login') }}'">
-            <input type="button" class="button_signup" value="Sign up" onclick="window.location.href='{{ url_for('Sign_up') }}'">
-        </div>
+        <input type="search" class="search_bar" placeholder="What game are you looking for?                                              &#128270" >
+        <input type="button" class="logOut_button" value="Log out" onclick="window.location.href=' {{ url_for('login')}} '">
         
     </div>
 
-    <div class="square"><p class="textsquare">Folk's Favorite</p></div>
+    <div class="square">
+        <!--<p class="textsquare">Folk's Favorites</p>-->
+
+        <!--Carrosel-->
+        <div class="carousel">
+
+            <div class="carousel-item" onclick="window.location.href='{{ url_for('product_page', product_id=favorites[0][0]) }}'">
+                <img src="{{ url_for('static', filename=game_titles[0]) }}" alt=game_titles[0]>
+                <div class="game-info">
+                    <h3>{{ favorites[0][1] }}</h3>
+                    <p>{{favorites[0][2]}}, {{favorites[0][3]}}, {{favorites[0][4]}}</p>
+                    <span class="price">$ {{favorites[0][5]}}</span>
+                </div>
+            </div>
+
+            <div class="carousel-item" onclick="window.location.href='{{url_for('product_page', product_id=favorites[1][0])}}'">
+                <img src="{{ url_for('static', filename=game_titles[1]) }}" alt=game_titles[1]>
+                <div class="game-info">
+                    <h3>{{favorites[1][1]}}</h3>
+                    <p>{{favorites[1][2]}}, {{favorites[1][3]}}, {{favorites[1][4]}}</p>
+                    <span class="price">$ {{favorites[1][5]}}</span>
+                </div>
+            </div>
+
+            <div class="carousel-item" onclick="window.location.href='{{ url_for('product_page', product_id=favorites[2][0]) }}'">
+                <img src="{{ url_for('static', filename=game_titles[2]) }}" alt=game_titles[2]>
+                <div class="game-info">
+                    <h3>{{favorites[2][1]}}</h3>
+                    <p>{{favorites[2][2]}}, {{favorites[2][3]}}, {{favorites[2][4]}}</p>
+                    <span class="price">$ {{favorites[2][5]}}</span>
+                </div>
+            </div>
+            
+            <div class="carousel-item" onclick="window.location.href='{{url_for('product_page', product_id=favorites[3][0]) }}'">
+                <img src="{{ url_for('static', filename=game_titles[3]) }}" alt=game_titles[3]>
+                <div class="game-info">
+                    <h3>{{favorites[3][1]}}</h3>
+                    <p>{{favorites[3][2]}}, {{favorites[3][3]}}, {{favorites[3][4]}}</p>
+                    <span class="price">$ {{favorites[3][5]}}</span>
+                </div>
+            </div>
+
+        </div>
+    </div>
     
 </body>
 </html>

@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" href="{{ url_for('static', filename='AC_logo.jpeg') }}">
+    <title>Test</title>
+
+    <style>
+        .body{
+            background-color: rgb(225, 225, 225);
+            margin: 0;
+            padding: 0;
+        }
+        
+        .logo{
+            width: 80px;
+            height: auto;
+            /* corres presentes na logo #ee8521, #0c0806, #945420, #8c643c, #865434*/
+        }
+
+        .box{
+            width: 100%;
+            background-color: black;
+            padding: 10px;
+            align-items: center;
+            gap: 10px;
+            display: flex;
+            border: 2px;
+            box-sizing: border-box;
+        }
+
+        .textbox{
+            color: aliceblue;
+            font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+            font-weight: bold;
+        }
+
+        .search_bar{
+            margin-left: 200px;
+            padding: 10px;
+            width: 500px;
+            border: 1px solid #ccc;
+            font-size: 16px;
+            outline: none;
+        }
+
+        .next_button {
+            display: inline-block;
+            margin-left: 650px; /* espaço entre eles */
+            background-color: rgb(76, 76, 75);
+            border: none;
+            border-radius: 10px;
+            height: 0.75cm;
+            color: rgb(255, 255, 255);
+        }
+
+        .next_button:hover {
+            background-color: #aabdab; /* Cor de fundo ao passar o mouse */
+        }
+    </style>
+</head>
+<body class="body">
+    <div class="box">
+        <img src="{{ url_for('static', filename='AC_logo.jpeg') }}" alt="Logo ARCADE CHECKPOINY" class="logo">
+        <p class="textbox">ARCADE CHECKPOINT</p>
+        <input type="search" class="search_bar" placeholder="What game are you looking for?                                              &#128270" >
+        
+    </div>
+
+    <div>
+        <h4>Choose the Genres you'd like to see:</h4>
+        <h4>Choose the platforms you use:</h4>
+        <h4>Choose the game mode you'd like to play on:</h4>
+        <h4>Choose the price range you'd like to see:</h4>
+        <input type="button" value="Next" class="next_button" onclick="window.location.href='{{ url_for('home_page') }}'">
+    </div>
+</body>
+</html>

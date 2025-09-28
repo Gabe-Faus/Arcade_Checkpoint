@@ -48,18 +48,32 @@
             padding: 0;
         }
 
+        /* Line */
+        .line {
+            margin-top: 12cm;
+            display: flex;
+            margin-left: 13cm;
+        }
+
+        .textline {
+            color: black;
+            font-family: Verdana, Geneva, Tahoma, sans-serif;
+            font-weight: 100;
+        }
+
         /* Button Style */
-        .button {
+        .SignUp_button {
             display: inline-block;
-            margin-left: 500px; /* espaço entre eles */
+            margin-left: 0.5cm; /* espaço entre eles */
             background-color: #ee8521;
             border: none;
             border-radius: 10px;
             height: 0.75cm;
             color: black;
+            margin-top: 0.65cm;
         }
 
-        .button:hover {
+        .SignUp_button:hover {
             background-color: #aabdab; /* Cor de fundo ao passar o mouse */
         }
 
@@ -67,7 +81,7 @@
 
         .next_button {
             display: inline-block;
-            margin-left: 700px; /* espaço entre eles */
+            margin-left: 650px; /* espaço entre eles */
             background-color: rgb(76, 76, 75);
             border: none;
             border-radius: 10px;
@@ -102,7 +116,7 @@
         }
 
         /* Estilo dos campos de entrada */
-        input[type="email"],
+        input[type="text"],
         input[type="password"]{
             width: calc(100% - 20px); /* Ajusta a largura dos campos para preencher o container */
             padding: 10px; /* Espaçamento interno */
@@ -125,16 +139,15 @@
         <img src="{{ url_for('static', filename='AC_logo.jpeg') }}" alt="Logo Arcade CHeckpoint" class="logo">
         <p class="textbox">ARCADE CHECKPOINT</p>
         <h1 class="title">Log into your account</h1>
-        <button class="button" type="button" onclick="window.location.href='{{ url_for('home_page') }}'">Back</button>
     </div>
 
     <form action="/Log_in" method="POST" enctype="multipart/form-data">
         <fieldset class="formulario">
-            <label  class="texto" for="Email">E-mail:</label>
-            <input type="email" id="Email" name="Email" placeholder="Type your email">
+            <label  class="texto" for="Username">Username:</label>
+            <input type="text" id="Username" name="Username" placeholder="Type your Username">
 
-            <label  class="texto" for="Senha">Password:</label>
-            <input type="password" id="Senha" name="Senha" placeholder="Type your password">
+            <label  class="texto" for="Password">Password:</label>
+            <input type="password" id="Password" name="Password" placeholder="Type your Password">
 
             <button class="next_button" type="submit">Next</button>
             {% if mensagem %}
@@ -144,6 +157,11 @@
             {% endif %}
         </fieldset>
     </form>
+    
+    <div class="line">
+        <h2 class="textline">Don't have an account? Sign up here &#x2192;</h2>
+        <button class="SignUp_button" type="button" onclick="window.location.href='{{ url_for('Sign_up') }}'">Sign up</button>
+    </div>
     
 </body>
 </html>
