@@ -20,7 +20,7 @@ Connect_Base()
 
 from pathlib import Path
 
-def folks_favorite():
+def all_games():
     conn = Connect_Base()
 
     try:
@@ -37,13 +37,11 @@ def folks_favorite():
                 FROM PRODUCT p
                 JOIN RATING r ON p.ID_PRODUCT = r.ID_PRODUCT
                 GROUP BY p.ID_PRODUCT, p.NAME_PRODUCT, p.GENRE, p.PLATFORM, p.GAME_MODE, p.PRICE
-                ORDER BY average_rating DESC
-                LIMIT 4;
+                ORDER BY average_rating DESC;
             """)
             cur.execute(query)
             result = cur.fetchall()
 
-            # Lista com os nomes dos produtos
             names = [row[1] for row in result]
 
     except Exception as e:
@@ -53,18 +51,17 @@ def folks_favorite():
     finally:
         conn.close()
 
-    # Buscar imagens na pasta static
     base = Path("C:\\Users\\faust\\Desktop\\Sistema de Recomendação\\static")
     game_titles = []
 
     for name in names:
         name_lower = name.lower()
         for file in base.iterdir():
-            if name_lower in file.stem.lower():  # busca flexível
+            if name_lower in file.stem.lower(): 
                 game_titles.append(file.name)
                 break
         else:
-            game_titles.append("default.jpg")  # fallback caso não encontre
+            game_titles.append("default.jpg") 
 
     return result, game_titles
 
@@ -88,7 +85,7 @@ def User_Login(Username, Password):
 
                 if bcrypt.checkpw(Password.encode('utf-8'), stored_password.encode('utf-8')):
                     print("Login suceded")
-                    return True, stored_username  # Retorne True e os dados do usuário para redirecionar ao site
+                    return True, stored_username  
                 else:
                     print("Wrong Password")
                     return False, None
@@ -108,9 +105,7 @@ def Signing_up(Username, Password):
     conn = Connect_Base()
     try:
         with conn.cursor() as cur:
-             # Gera o hash da senha com um salt
             Password_hash = bcrypt.hashpw(Password.encode('utf-8'), bcrypt.gensalt())
-            # Query para cadastrar usuario
             query = sql.SQL("""INSERT INTO CLIENT(USERNAME, PASSWORD_HASH)
                     VALUES(%s, %s)""")
             
@@ -152,18 +147,59 @@ def find_prod(product_id):
     if not product:
         return "Produto não encontrado", 404
     
-    # Caminho da pasta de imagens
     base = Path("C:\\Users\\faust\\Desktop\\Sistema de Recomendação\\static")
     game_name = product[1].lower()
     game_title = None
 
-    # Itera pelos arquivos da pasta procurando uma correspondência
     for file in base.iterdir():
-        if game_name in file.stem.lower():  # busca por substring (mais flexível)
+        if game_name in file.stem.lower(): 
             game_title = file.name
-            break  # achou, não precisa continuar
+            break  
 
     if not game_title:
-        game_title = "default.jpg"  # fallback caso não encontre nenhuma imagem
+        game_title = "default.jpg"  
 
     return product, game_title
+
+def search_games(term):
+    conn = Connect_Base()
+    try:
+        with conn.cursor() as cur:
+            query = sql.SQL("""
+                SELECT 
+                    id_product,
+                    name_product,
+                    genre,
+                    platform,
+                    game_mode,
+                    price
+                FROM product
+                WHERE LOWER(name_product) LIKE LOWER(%s)
+                OR LOWER(genre) LIKE LOWER(%s)
+                OR LOWER(platform) LIKE LOWER(%s)
+                ORDER BY name_product;
+            """)
+            cur.execute(query, (f"%{term}%", f"%{term}%", f"%{term}%"))
+            results = cur.fetchall()
+            names = [row[1] for row in results]
+
+
+    except Exception as e:
+        print(f"Erro ao buscar: {e}")
+        results = []
+    finally:
+        conn.close()
+
+    base = Path("C:\\Users\\faust\\Desktop\\Sistema de Recomendação\\static")
+    game_titles = []
+
+    for name in names:
+        name_lower = name.lower()
+        for file in base.iterdir():
+            if name_lower in file.stem.lower(): 
+                game_titles.append(file.name)
+                break
+        else:
+            game_titles.append("default.jpg")
+
+    return results, game_titles

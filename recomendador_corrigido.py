@@ -323,7 +323,7 @@ if __name__ == "__main__":
     """
     import os
     
-    csv_default = 'jogos_carac.csv'
+    csv_default = 'fontes//jogos_carac.csv'
     
     if not os.path.exists(csv_default):
         print(f"ERRO: Arquivo '{csv_default}' não encontrado.")

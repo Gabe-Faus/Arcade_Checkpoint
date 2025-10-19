@@ -16,7 +16,6 @@
         .logo{
             width: 80px;
             height: auto;
-            /* corres presentes na logo #ee8521, #0c0806, #945420, #8c643c, #865434*/
         }
 
         .box{
@@ -36,33 +35,26 @@
             font-weight: bold;
         }
 
-        .search_bar{
-            margin-left: 200px;
-            padding: 10px;
-            width: 500px;
-            border: 1px solid #ccc;
-            font-size: 16px;
-            outline: none;
-        }
-
         .back_button {
             display: inline-block;
-            margin-left: 200px; /* espaço entre eles */
+            margin-left: 900px;
             background-color: #ee8521;
             border: none;
             border-radius: 10px;
             height: 0.75cm;
             color: black;
+            cursor: pointer;
         }
 
         .back_button:hover {
-            background-color: #aabdab; /* Cor de fundo ao passar o mouse */
+            background-color: #aabdab; 
         }
 
         .button_container {
             display: flex;
-            gap: 20px; /* espaço entre os botões */
+            gap: 20px; 
             margin-left: 300px;
+            cursor: pointer;
         }
 
         .info_box{
@@ -97,7 +89,7 @@
 
         .buy_button{
             background-color: darkgreen;
-            width: 5cm;
+            width: 3cm;
             border: none;
             display: inline-block;
             border-radius: 10px;
@@ -105,11 +97,98 @@
             color: beige;
             margin-left: 4cm;
             margin-top: 2cm;
-            
+            cursor: pointer;
         }
 
         .buy_button:hover{
             background-color: green;
+        }
+
+        .rate-btn {
+            background-color: #ee8521;
+            color: black;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        .rate-btn:hover {
+            background-color: green;
+            color: white;
+        }
+
+        .modal {
+            display: none; 
+            position: fixed;
+            z-index: 1;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.5);
+        }
+
+        .modal-content {
+            background-color: rgb(170, 161, 148);
+            margin: 15% auto;
+            padding: 20px;
+            border: 2px solid #4c4c4b;
+            width: 300px;
+            text-align: center;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+        }
+
+
+        .rating-options {
+            display: flex;
+            justify-content: space-around;
+            margin-top: 20px;
+        }
+
+        .rating-options input[type="radio"] {
+            display: none; 
+        }
+
+        .rating-options label {
+            background-color: #4c4c4b;
+            color: white;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+
+        .rating-options input[type="radio"]:checked + label {
+            background-color: #aecaaf;
+            color: black;
+            transform: scale(1.1);
+        }
+
+        .close-btn {
+            background-color: #4c4c4b;
+            color: white;
+            border: none;
+            padding: 8px 15px;
+            border-radius: 8px;
+            cursor: pointer;
+            margin-top: 15px;
+        }
+
+        .close-btn:hover {
+            background-color: #aecaaf;
+            color: black;
+        }
+
+        .price {
+            font-weight: bold;
+            color: #2a6a2a;
+            font-size: large;
         }
 
     </style>
@@ -119,7 +198,6 @@
 
         <img src="{{ url_for('static', filename='AC_logo.jpeg') }}" alt="Logo ARCADE CHECKPOINY" class="logo">
         <p class="textbox">ARCADE CHECKPOINT</p>
-        <input type="search" class="search_bar" placeholder="What game are you looking for?                                              &#128270" >
         <div class="button_container">
             <input type="button" class="back_button" value="&#8617" onclick="window.location.href=' {{ url_for('home_page')}} '">
         </div>
@@ -137,17 +215,32 @@
                 <p>Genre: {{ product[2] }}</p>
                 <p>Plataform: {{ product[3] }}</p>
                 <p>Game Mode: {{ product[4] }}</p>
-                <p>Price: $ {{ "%.2f"|format(product[5]) }}</p>
                 <p>
                     Rating: 
                     {% for _ in range(product[6]|round(0, 'floor')|int) %}
-                        &#9733;
+                        ⭐
                     {% endfor %}
                     {% for _ in range(5 - (product[6]|round(0, 'floor')|int)) %}
                         &#9734;
                     {% endfor %}
                     ({{ product[6] }}/5.00)
                 </p>
+                <p class="price">Price: $ {{ "%.2f"|format(product[5]) }}</p>
+                <button class="rate-btn" onclick="openModal()">Rate this item</button>
+
+                <div id="rateModal" class="modal">
+                    <div class="modal-content">
+                        <h3>Rate this item</h3>
+                        <div class="rating-options">
+                        <input type="radio" id="r1" name="rating" value="1"><label for="r1">1</label>
+                        <input type="radio" id="r2" name="rating" value="2"><label for="r2">2</label>
+                        <input type="radio" id="r3" name="rating" value="3"><label for="r3">3</label>
+                        <input type="radio" id="r4" name="rating" value="4"><label for="r4">4</label>
+                        <input type="radio" id="r5" name="rating" value="5"><label for="r5">5</label>
+                        </div>
+                        <button class="close-btn" onclick="closeModal()">Submit</button>
+                    </div>
+                </div>
 
 
                 <input type="button" class="buy_button" onclick="" value="Buy Now">
@@ -155,5 +248,27 @@
         </div>
     </div>
 
+    <script>
+        const modal = document.getElementById("rateModal");
+
+        function openModal() {
+            modal.style.display = "block";
+        }
+
+        function closeModal() {
+            modal.style.display = "none";
+            const rating = document.querySelector('input[name="rating"]:checked');
+            if (rating) {
+            alert(`Você avaliou com nota ${rating.value}!`);
+            }
+        }
+
+        // fecha o popup clicando fora
+        window.onclick = function(event) {
+            if (event.target == modal) {
+            modal.style.display = "none";
+            }
+    }
+    </script>
 </body>
 </html>

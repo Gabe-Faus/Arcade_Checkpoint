@@ -3,7 +3,7 @@ import psycopg2
 from psycopg2 import sql
 import io
 from io import BytesIO
-from Data_base import *
+from Connect_base import *
 from pathlib import Path
 
 app = Flask(__name__)
@@ -18,8 +18,9 @@ def raiz():
 
 @app.route('/Home_page')
 def home_page():
-    favorites, game_titles = folks_favorite()
-    return render_template('Home_page.html', favorites=favorites, game_titles=game_titles)
+    all, game_titles = all_games()
+    combined = list(zip(all, game_titles))
+    return render_template('Home_page.html', all=all, game_titles=game_titles, combined=combined)
 
 # Sign up Route
 @app.route('/Sign_up', methods=['GET', 'POST'])
@@ -77,6 +78,19 @@ def product_page(product_id):
 @app.route('/Test')
 def Test():
     return render_template('Test.html')
+
+@app.route('/search')
+def search():
+    term = request.args.get("q", "").strip()
+
+    if not term:
+        return render_template("Search_results.html", results=[], query=term)
+
+    results, game_titles = search_games(term)
+    combined = list(zip(results, game_titles))
+    
+    return render_template("Search_results.html", results=combined, query=term)
+
 
 # MAIN
 if __name__ ==  "__main__":

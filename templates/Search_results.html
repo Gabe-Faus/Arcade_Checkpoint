@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" href="{{ url_for('static', filename='AC_logo.jpeg') }}">
+    <title>Pesquisa</title>
+    <style>
+        .textbox{
+            color: aliceblue;
+            font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+            font-weight: bold;
+        }
+
+        .body{
+            background-color: rgb(225, 225, 225);
+            margin: 0;
+            padding: 0;
+        }
+        
+        .logo{
+            width: 80px;
+            height: auto;
+        }
+
+        .box{
+            width: 100%;
+            background-color: black;
+            padding: 10px;
+            align-items: center;
+            gap: 10px;
+            display: flex;
+            border: 2px;
+            box-sizing: border-box;
+        }
+
+        .back_button {
+            display: inline-block;
+            margin-left: 900px;
+            background-color: #ee8521;
+            border: none;
+            border-radius: 10px;
+            height: 0.75cm;
+            color: black;
+            cursor: pointer;
+        }
+
+        .back_button:hover {
+            background-color: #aabdab;
+        }
+
+        .button_container {
+            display: flex;
+            gap: 20px; 
+            margin-left: 300px;
+            cursor: pointer;
+        }
+
+        .game-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); 
+            gap: 20px;
+        }
+
+        .game-card {
+            background-color: #f2f2f2;
+            overflow: hidden;
+            transition: transform 0.2s, box-shadow 0.2s;
+            cursor: pointer;
+        }
+
+        .game-card:hover {
+            transform: scale(1.03);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+        }
+
+        .game-card img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
+
+        .game-info {
+            padding: 10px;
+            text-align: center;
+        }
+
+        .game-info h3 {
+            margin: 5px 0;
+            font-size: 18px;
+            color: #333;
+        }
+
+        .game-info p {
+            font-size: 14px;
+            color: #666;
+            margin: 5px 0;
+        }
+
+        .price {
+            font-weight: bold;
+            color: #2a6a2a;
+        }
+
+        .rating {
+            display: block;
+            color: #ffb400;
+            font-size: 14px;
+            margin-top: 5px;
+        }
+        .bloco{
+            padding: 30px;
+        }
+    </style>
+</head>
+<body class="body">
+    <div class="box">
+
+        <img src="{{ url_for('static', filename='AC_logo.jpeg') }}" alt="Logo ARCADE CHECKPOINY" class="logo">
+        <p class="textbox">ARCADE CHECKPOINT</p>
+        <div class="button_container">
+            <input type="button" class="back_button" value="&#8617" onclick="window.location.href=' {{ url_for('home_page')}} '">
+    </div>
+        
+    </div>
+<div class="bloco">
+  <h2>Results for: "{{ query }}"</h2>
+
+  {% if results %}
+    <div class="game-grid">
+    {% for game, img in results %}
+    <div class="game-card" onclick="window.location.href='{{ url_for('product_page', product_id=game[0]) }}'">
+        <img src="{{ url_for('static', filename=img) }}" alt="{{ game[1] }}">
+        <div class="game-info">
+        <h3>{{ game[1] }}</h3>
+        <p>{{ game[2] }}, {{ game[3] }}, {{ game[4] }}</p>
+        <span class="price">$ {{ game[5] }}</span>
+        </div>
+    </div>
+    {% endfor %}
+    </div>
+    {% else %}
+    <p>No results found for "{{ query }}".</p>
+    {% endif %}
+</div>
+</body>
+
+</html>

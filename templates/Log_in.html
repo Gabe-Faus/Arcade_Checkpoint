@@ -7,7 +7,6 @@
     <title>Login</title>
     <style>
 
-        /* Box Style */
         .box{
             width: 100%;
             background-color: black;
@@ -19,21 +18,17 @@
             box-sizing: border-box;
         }
 
-        /* Logo Style */
         .logo{
             width: 80px;
             height: auto;
-            /* corres presentes na logo #ee8521, #0c0806, #945420, #8c643c, #865434*/
         }
 
-        /* Name Style */
         .textbox{
             color: aliceblue;
             font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
             font-weight: bold;
         }
 
-        /* Title Style */
         .title{
             color: aliceblue;
             font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
@@ -41,14 +36,12 @@
             margin-left: 300px;
         }
 
-        /* Page body Style */
         .body {
             background-color: rgb(225, 225, 225);
             margin: 0;
             padding: 0;
         }
 
-        /* Line */
         .line {
             margin-top: 12cm;
             display: flex;
@@ -61,74 +54,72 @@
             font-weight: 100;
         }
 
-        /* Button Style */
         .SignUp_button {
             display: inline-block;
-            margin-left: 0.5cm; /* espaço entre eles */
+            margin-left: 0.5cm; 
             background-color: #ee8521;
             border: none;
             border-radius: 10px;
             height: 0.75cm;
             color: black;
             margin-top: 0.65cm;
+            cursor: pointer;
         }
 
         .SignUp_button:hover {
-            background-color: #aabdab; /* Cor de fundo ao passar o mouse */
+            background-color: #aabdab; 
         }
-
-        /* Next button Style*/
 
         .next_button {
             display: inline-block;
-            margin-left: 650px; /* espaço entre eles */
+            margin-left: 650px; 
             background-color: rgb(76, 76, 75);
             border: none;
             border-radius: 10px;
             height: 0.75cm;
             color: rgb(255, 255, 255);
+            cursor: pointer;
         }
 
         .next_button:hover {
-            background-color: #aabdab; /* Cor de fundo ao passar o mouse */
+            background-color: #aabdab; 
         }
 
         /* Estilo do fieldset */
         .formulario {
             font-family: Verdana, Geneva, Tahoma, sans-serif;
-            width: 80%; /* Largura ajustada para 80% da largura da página */
-            max-width: 700px; /* Largura máxima do campo */
-            background-color: rgb(170, 161, 148); /* Cor de fundo do quadrado */
-            position: absolute; /* Permite o posicionamento absoluto */
-            top: 50%; /* Posiciona o topo do quadrado a 50% da altura da página */
-            left: 50%; /* Posiciona a esquerda do quadrado a 50% da largura da página */
-            transform: translate(-50%, -50%); /* Move o quadrado para cima e para a esquerda para centralizar */
-            padding: 20px; /* Espaçamento interno */
-            border: 2px solid rgb(76, 76, 75); /* Borda ao redor do fieldset */
-            box-shadow: 0 4px 8px rgba(0,0,0,0.2); /* Sombra ao redor do campo */
+            width: 80%;
+            max-width: 700px; 
+            background-color: rgb(170, 161, 148); 
+            position: absolute; 
+            top: 50%; 
+            left: 50%; 
+            transform: translate(-50%, -50%); 
+            padding: 20px; 
+            border: 2px solid rgb(76, 76, 75); 
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2); 
         }
-        /* Estilo do texto dentro do fieldset */
+       
         .texto {
             font-family: Verdana, Geneva, Tahoma, sans-serif;
-            color: rgb(0, 0, 0); /* Cor do texto */
-            margin-bottom: 10px; /* Espaçamento abaixo dos rótulos */
-            display: block; /* Faz com que o rótulo ocupe toda a largura disponível */
+            color: rgb(0, 0, 0); 
+            margin-bottom: 10px; 
+            display: block; 
         }
 
-        /* Estilo dos campos de entrada */
         input[type="text"],
         input[type="password"]{
-            width: calc(100% - 20px); /* Ajusta a largura dos campos para preencher o container */
-            padding: 10px; /* Espaçamento interno */
-            margin-bottom: 15px; /* Espaçamento abaixo dos campos */
-            border: 1px solid #ccc; /* Borda dos campos de entrada */
-            border-radius: 5px; /* Borda arredondada */
-            font-size: 16px; /* Tamanho da fonte nos campos de entrada */
+            width: calc(100% - 20px); 
+            padding: 10px; 
+            margin-bottom: 15px; 
+            border: 1px solid #ccc; 
+            border-radius: 5px; 
+            font-size: 16px;
         }
 
         .mensagem{
-            text-align: center; /* Centraliza o texto */
-            color: rgb(245, 245, 220); /* Cor do texto */;
+            text-align: center; 
+            color: rgb(245, 245, 220); ;
             font-family: Verdana, Geneva, Tahoma, sans-serif;
         }
 

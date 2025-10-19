@@ -1,6 +1,6 @@
 import psycopg2
 import pandas as pd
-from Data_base import Connect_Base
+from Connect_base import Connect_Base
 # ---------- CONFIG ----------
 CSV_USERS = r"C:/Users/faust/Desktop/Sistema de Recomendação/fontes/usuarios.csv"
 CSV_RATINGS = r"C:/Users/faust/Desktop/Sistema de Recomendação/fontes/matriz_utilidade.csv"
@@ -8,15 +8,7 @@ BATCH_USERS = 50   # inserir clientes faltantes em lotes de 50
 BATCH_USER_RATINGS = 50  # inserir ratings por 50 usuários por lote
 # DB
 
-"""DB_CONFIG = {
-    "dbname":"Arcade_Checkpoint",
-    "host":"localhost",
-    "user":"postgres",
-    "password":"#Gabriel19",
-    "port":"5432"
-}
-# ----------------------------
-"""
+
 conn = Connect_Base()
 cur = conn.cursor()
 
