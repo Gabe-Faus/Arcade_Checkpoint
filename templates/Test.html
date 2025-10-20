@@ -16,7 +16,6 @@
         .logo{
             width: 80px;
             height: auto;
-            /* corres presentes na logo #ee8521, #0c0806, #945420, #8c643c, #865434*/
         }
 
         .box{
@@ -52,14 +51,14 @@
             border-radius: 10px;
             height: 0.75cm;
             color: rgb(255, 255, 255);
-            max-width: 1cm;
+            width: 3cm;
             text-align: center;
             margin-left: 15cm;
             cursor: pointer;
         }
 
         .next_button:hover {
-            background-color: #aabdab; /* Cor de fundo ao passar o mouse */
+            background-color: #aabdab;
         }
 
         h1{
@@ -67,9 +66,10 @@
             color: black;
             font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
         }
-       form {
+
+        form {
             max-width: 700px;
-            margin: 20px auto; /* ✅ centraliza horizontalmente */
+            margin: 20px auto;
             padding: 15px;
             text-align: center;
             background-color: rgb(170, 161, 148);
@@ -78,17 +78,15 @@
             border-radius: 10px;
         }
 
-
         .choice {
             display: none; /* esconde o checkbox */
         }
 
-        /* container das opções */
         section {
             display: flex;
-            flex-wrap: wrap;  /* permite quebrar linha automaticamente */
-            justify-content: center; /* centraliza os itens */
-            gap: 10px; /* espaço entre botões */
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 10px;
             margin-bottom: 15px;
         }
 
@@ -114,80 +112,121 @@
             color: black;
             transform: scale(1.03);
         }
-
-
-        
     </style>
 </head>
-<body class="body">
+
+<body class="body"> 
     <div class="box">
         <img src="{{ url_for('static', filename='AC_logo.jpeg') }}" alt="Logo ARCADE CHECKPOINY" class="logo">
         <p class="textbox">ARCADE CHECKPOINT</p>
-        <input type="search" class="search_bar" placeholder="What game are you looking for?                                              &#128270" >
-        
+        <input type="search" class="search_bar" placeholder="What game are you looking for? &#128270">
     </div>
 
     <div>
         <h1>Tell us what kind of gamer are you...</h1>
         <section>
-            
-            <form action="#">
+            <form id="gamerForm">
                 <h3 class="textbox">What genres do you like?</h3>
-                <section>
-                    <input type="checkbox" class="choice" id="Aventura" value="Aventura">
+                <section id="genres">
+                    <input type="checkbox" id="Aventura" value="Aventura" class="choice">
                     <label for="Aventura">Aventura</label>
-                    <input type="checkbox" class="choice" id="Ação" value="Ação">
+
+                    <input type="checkbox" id="Ação" value="Ação" class="choice">
                     <label for="Ação">Ação</label>
-                    <input type="checkbox" class="choice" id="Metroidvania" value="Metroidvania">
+
+                    <input type="checkbox" id="Metroidvania" value="Metroidvania" class="choice">
                     <label for="Metroidvania">Metroidvania</label>
-                    <input type="checkbox" class="choice" id="Puzzle" value="Puzzle">
+
+                    <input type="checkbox" id="Puzzle" value="Puzzle" class="choice">
                     <label for="Puzzle">Puzzle</label>
-                    <input type="checkbox" class="choice" id="Sandbox" value="Sandbox">
+
+                    <input type="checkbox" id="Sandbox" value="Sandbox" class="choice">
                     <label for="Sandbox">Sandbox</label>
-                    <input type="checkbox" class="choice" id="RPG" value="RPG">
+
+                    <input type="checkbox" id="RPG" value="RPG" class="choice">
                     <label for="RPG">RPG</label>
-                    <input type="checkbox" class="choice" id="Simulação" value="Simulação">
+
+                    <input type="checkbox" id="Simulação" value="Simulação" class="choice">
                     <label for="Simulação">Simulação</label>
-                    <input type="checkbox" class="choice" id="Estratégia" value="Estratégia">
+
+                    <input type="checkbox" id="Estratégia" value="Estratégia" class="choice">
                     <label for="Estratégia">Estratégia</label>
-                    <input type="checkbox" class="choice" id="Horror" value="Horror">
+
+                    <input type="checkbox" id="Horror" value="Horror" class="choice">
                     <label for="Horror">Horror</label>
-                    <input type="checkbox" class="choice" id="Narrativo" value="Narrativo">
+
+                    <input type="checkbox" id="Narrativo" value="Narrativo" class="choice">
                     <label for="Narrativo">Narrativo</label>
                 </section>
 
                 <h3 class="textbox">In what platforms do you usually play?</h3>
-                <section>
-                    <input type="checkbox" class="choice" id="Xbox" value="Xbox">
+                <section id="platforms">
+                    <input type="checkbox" id="Xbox" value="Xbox" class="choice">
                     <label for="Xbox">Xbox</label>
-                    <input type="checkbox" class="choice" id="Play Station" value="Play Station">
-                    <label for="Play Station">Play Station</label>
-                    <input type="checkbox" class="choice" id="PC" value="PC">
+
+                    <input type="checkbox" id="PlayStation" value="PlayStation" class="choice">
+                    <label for="PlayStation">PlayStation</label>
+
+                    <input type="checkbox" id="PC" value="PC" class="choice">
                     <label for="PC">PC</label>
-                    <input type="checkbox" class="choice" id="Nintendo Switch" value="Nintendo Switch">
-                    <label for="Nintendo Switch">Nintendo Switch</label>
-                    <input type="checkbox" class="choice" id="Multiplataforma" value="Multiplataforma">
+
+                    <input type="checkbox" id="NintendoSwitch" value="Nintendo Switch" class="choice">
+                    <label for="NintendoSwitch">Nintendo Switch</label>
+
+                    <input type="checkbox" id="Multiplataforma" value="Multiplataforma" class="choice">
                     <label for="Multiplataforma">Multiplataforma</label>
-                    <input type="checkbox" class="choice" id="Mobile" value="Mobile">
+
+                    <input type="checkbox" id="Mobile" value="Mobile" class="choice">
                     <label for="Mobile">Mobile</label>
                 </section>
 
-                <h3 class="textbox">what game mode is your favorite?</h3>
-                <section>
-                    <input type="checkbox" class="choice" id="Single-Player" value="Single-Player">
-                    <label for="Single-Player">Single-Player</label>
-                    <input type="checkbox" class="choice" id="Mundo Aberto" value="Mundo Aberto">
-                    <label for="Mundo Aberto">Mundo Aberto</label>
-                    <input type="checkbox" class="choice" id="Multiplayer online" value="Multiplayer online">
-                    <label for="Multiplayer online">Multiplayer online</label>
-                    <input type="checkbox" class="choice" id="Cooperativo" value="Cooperativo">
+                <h3 class="textbox">What game mode is your favorite?</h3>
+                <section id="modes">
+                    <input type="checkbox" id="SinglePlayer" value="Single-Player" class="choice">
+                    <label for="SinglePlayer">Single-Player</label>
+
+                    <input type="checkbox" id="MundoAberto" value="Mundo Aberto" class="choice">
+                    <label for="MundoAberto">Mundo Aberto</label>
+
+                    <input type="checkbox" id="MultiplayerOnline" value="Multiplayer online" class="choice">
+                    <label for="MultiplayerOnline">Multiplayer online</label>
+
+                    <input type="checkbox" id="Cooperativo" value="Cooperativo" class="choice">
                     <label for="Cooperativo">Cooperativo</label>
                 </section>
-            
-                <input type="next_button" value="Next" class="next_button" onclick="window.location.href='{{ url_for('home_page') }}'">
+
+                <button type="submit" class="next_button">Next</button>
             </form>
         </section>
-        
     </div>
+
+    <script>
+        document.querySelector("#gamerForm").addEventListener("submit", async function (event) {
+        event.preventDefault();
+
+        const generos = [...document.querySelectorAll("#genres .choice:checked")].map(el => el.value);
+        const plataformas = [...document.querySelectorAll("#platforms .choice:checked")].map(el => el.value);
+        const modos = [...document.querySelectorAll("#modes .choice:checked")].map(el => el.value);
+
+        const preferencias = { generos, plataformas, modos_jogo: modos };
+
+        console.log("Enviando:", preferencias);
+
+        const resposta = await fetch("/salvar_respostas", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(preferencias)
+        });
+
+        const data = await resposta.json();
+
+        if (data.redirect) {
+            window.location.href = data.redirect; // redireciona para Home_page
+        } else {
+            console.error("Erro ao salvar:", data);
+        }
+    });
+
+    </script>
 </body>
 </html>

@@ -5,65 +5,105 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="shortcut icon" href="{{ url_for('static', filename='AC_logo.jpeg') }}">
     <title>Arcade Checkpoint</title>
-    <style>
 
-        .body{
-            background-color: rgb(225, 225, 225);
+    <style>
+        body {
+            background-color: #e1e1e1;
             margin: 0;
             padding: 0;
+            font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
         }
-        
-        .logo{
+
+        .box {
+            width: 100%;
+            background-color: #000;
+            padding: 10px 20px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            box-sizing: border-box;
+        }
+
+        .logo {
             width: 80px;
             height: auto;
         }
 
-        .box{
-            width: 100%;
-            background-color: black;
-            padding: 10px;
+        .textbox {
+            color: #fff;
+            font-weight: bold;
+            font-size: 20px;
+            margin-left: 10px;
+        }
+
+        .search-container {
+            display: flex;
             align-items: center;
             gap: 10px;
-            display: flex;
-            border: 2px;
-            box-sizing: border-box;
+            flex-grow: 1;
+            justify-content: center;
         }
 
-        .textbox{
-            color: aliceblue;
-            font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
-            font-weight: bold;
-        }
-
-        .search_bar{
-            margin-left: 200px;
+        .search_bar {
             padding: 10px;
-            width: 500px;
+            width: 400px;
             border: 1px solid #ccc;
+            border-radius: 6px;
             font-size: 16px;
             outline: none;
         }
 
+        .search_button {
+            background-color: #ee8521;
+            border: none;
+            border-radius: 6px;
+            color: white;
+            padding: 10px 20px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: background-color 0.2s;
+        }
+
+        .search_button:hover {
+            background-color: #ff9b42;
+        }
+
+        .logOut_button {
+            background-color: #ee8521;
+            border: none;
+            border-radius: 10px;
+            color: black;
+            font-weight: bold;
+            padding: 10px 16px;
+            cursor: pointer;
+            transition: background-color 0.2s;
+        }
+
+        .logOut_button:hover {
+            background-color: #aabdab;
+        }
+
         .square {
-            background-color: rgb(170, 161, 148);
-            padding: 20px;
-            margin: 30px auto;
+            background-color: #aaa194;
+            padding: 30px;
+            margin: 40px auto;
             max-width: 1200px;
             box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+            border-radius: 10px;
         }
 
         .textsquare {
-            font-family: 'Trebuchet MS', sans-serif;
-            font-weight: bold;
-            color: black;
             text-align: center;
-            margin-bottom: 20px;
+            font-weight: bold;
+            font-size: 26px;
+            color: #222;
+            margin-bottom: 25px;
         }
 
         .game-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); /* Responsivo */
-            gap: 20px;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 25px;
         }
 
         .game-card {
@@ -71,26 +111,27 @@
             overflow: hidden;
             transition: transform 0.2s, box-shadow 0.2s;
             cursor: pointer;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
         }
 
         .game-card:hover {
             transform: scale(1.03);
-            box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+            box-shadow: 0 6px 15px rgba(0,0,0,0.25);
         }
 
         .game-card img {
             width: 100%;
-            height: 200px;
+            height: 180px;
             object-fit: cover;
         }
 
         .game-info {
-            padding: 10px;
+            padding: 15px;
             text-align: center;
         }
 
         .game-info h3 {
-            margin: 5px 0;
+            margin: 8px 0;
             font-size: 18px;
             color: #333;
         }
@@ -98,7 +139,7 @@
         .game-info p {
             font-size: 14px;
             color: #666;
-            margin: 5px 0;
+            margin: 4px 0;
         }
 
         .price {
@@ -112,29 +153,17 @@
             font-size: 14px;
             margin-top: 5px;
         }
-
-        .logOut_button {
-            display: inline-block;
-            margin-left: 400px; /* espaço entre eles */
-            background-color: #ee8521;
-            border: none;
-            border-radius: 10px;
-            height: 0.75cm;
-            color: black;
-            cursor: pointer;
-        }
-
-        .logOut_button:hover {
-            background-color: #aabdab; /* Cor de fundo ao passar o mouse */
-        }
-
-
     </style>
 </head>
-<body class="body">
+<body>
+
+    <!-- Barra superior -->
     <div class="box">
-        <img src="{{ url_for('static', filename='AC_logo.jpeg') }}" alt="Logo ARCADE CHECKPOINT" class="logo">
-        <p class="textbox">ARCADE CHECKPOINT</p>
+        <div style="display: flex; align-items: center; gap: 10px;">
+            <img src="{{ url_for('static', filename='AC_logo.jpeg') }}" alt="Logo ARCADE CHECKPOINT" class="logo">
+            <p class="textbox">ARCADE CHECKPOINT</p>
+        </div>
+
         <form action="{{ url_for('search') }}" method="GET" class="search-container">
             <input 
                 type="search" 
@@ -142,27 +171,35 @@
                 class="search_bar" 
                 placeholder="What game are you looking for?"
                 required>
-            <button type="submit" class="search_bar">Search</button>
+            <button type="submit" class="search_button">Search</button>
         </form>
+
         <input type="button" class="logOut_button" value="Log out" onclick="window.location.href='{{ url_for('login') }}'">
     </div>
 
     <div class="square">
-        <h2 class="textsquare">All our games</h2>
+        <h2 class="textsquare">Recommended Games for you!</h2>
 
-        <div class="game-grid">
-            {% for game, img in combined %}
-            <div class="game-card" onclick="window.location.href='{{ url_for('product_page', product_id=game[0]) }}'">
-                <img src="{{ url_for('static', filename=img) }}" alt="{{ game[1] }}">
-                <div class="game-info">
-                    <h3>{{ game[1] }}</h3>
-                    <p>{{ game[2] }}, {{ game[3] }}, {{ game[4] }}</p>
-                    <span class="price">$ {{ game[5] }}</span>
-                    <span class="rating">⭐ {{ game[6] }}</span>
-                </div>
+        {% if erro %}
+            <p style="color:red; text-align:center;">Erro: {{ erro }}</p>
+        {% elif combined %}
+            <div class="game-grid">
+                {% for jogo, imagem in combined %}
+                    <div class="game-card">
+                        <img src="{{ url_for('static', filename=imagem) }}" alt="{{ jogo[1] }}">
+                        <div class="game-info">
+                            <h3>{{ jogo[1] }}</h3>
+                            <p>{{ jogo[2] }} | {{ jogo[3] }} | {{ jogo[4] }}</p>
+                            <p class="price">💰 {{ jogo[5] }}</p>
+                            <span class="rating">⭐ {{ jogo[6] }}</span>
+                        </div>
+                    </div>
+                {% endfor %}
             </div>
-            {% endfor %}
-        </div>
+        {% else %}
+            <p style="text-align:center;">Nenhuma recomendação encontrada.</p>
+        {% endif %}
     </div>
+
 </body>
 </html>

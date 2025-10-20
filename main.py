@@ -1,6 +1,7 @@
 import os
 import time
 from colorama import Fore, Style, init
+from recomendador_tfidf import *
 
 init(autoreset=True)
 
@@ -147,4 +148,37 @@ def cadastro():
 
 
 if __name__ == '__main__':
-    cadastro()
+    # 1. Inicializar sistema
+    print("🚀 Inicializando sistema de recomendação...")
+    sistema_recomendacao = inicializar_sistema()
+    info = sistema_recomendacao.get_info_sistema()
+    print(f"O Sistema está pronto! {info['total_jogos']} jogos carregados")
+    
+    # 2. CHAMAR O FORMULÁRIO DO MAIN.PY (para teste em terminal)
+    print("\nIniciando formulário de preferências...")
+    preferencias = cadastro()  # ← Isso chama SEU formulário original!
+    
+    # 3. Converter formato do formulário para o sistema
+    generos, plataformas, modos_jogo = preferencias
+    
+    preferencias_para_sistema = {
+        'generos': generos,
+        'plataformas': plataformas, 
+        'modos_jogo': modos_jogo
+    }
+    
+    # 4. Gerar recomendações
+    print(Fore.BLUE + f'\nGerando recomendações baseadas no teu perfil...')
+    resultado = gerar_recomendacoes(sistema_recomendacao, preferencias_para_sistema, num_recomendacoes=10)
+    
+    # 5. Mostrar resultados
+    if resultado['sucesso']:
+        print(Fore.BLUE + f"\n{resultado['total_recomendacoes']} recomendações geradas:")
+        for i, rec in enumerate(resultado['recomendacoes'], 1):
+            print(Fore.BLUE + f"\n{i}. {rec['nome']}")
+            print(Fore.GREEN + f"   Gênero: {rec['genero']}")
+            print(Fore.GREEN + f"   Plataforma: {rec['plataforma']}")
+            print(Fore.GREEN + f"   Modo: {rec['modo_jogo']}")
+            print(Fore.GREEN + f"   Similaridade: {rec['score_percentual']}")
+    else:
+        print(Fore.RED + f"Erro: {resultado['erro']}")

@@ -16,37 +16,51 @@ def Connect_Base():
         print(f"Error connecting to data base: {e}")
         return None
 
-Connect_Base()
-
-from pathlib import Path
-
-def all_games():
+def all_games(filtros=None):
     conn = Connect_Base()
 
     try:
         with conn.cursor() as cur:
-            query = sql.SQL("""
-                SELECT 
-                    p.ID_PRODUCT,
-                    p.NAME_PRODUCT,
-                    p.GENRE,
-                    p.PLATFORM,
-                    p.GAME_MODE,
-                    p.PRICE,
-                    ROUND(AVG(r.RATING), 2) AS average_rating
-                FROM PRODUCT p
-                JOIN RATING r ON p.ID_PRODUCT = r.ID_PRODUCT
-                GROUP BY p.ID_PRODUCT, p.NAME_PRODUCT, p.GENRE, p.PLATFORM, p.GAME_MODE, p.PRICE
-                ORDER BY average_rating DESC;
-            """)
-            cur.execute(query)
-            result = cur.fetchall()
+            if filtros and len(filtros) > 0:
+                query = sql.SQL("""
+                    SELECT 
+                        p.ID_PRODUCT,
+                        p.NAME_PRODUCT,
+                        p.GENRE,
+                        p.PLATFORM,
+                        p.GAME_MODE,
+                        p.PRICE,
+                        ROUND(AVG(r.RATING), 2) AS average_rating
+                    FROM PRODUCT p
+                    JOIN RATING r ON p.ID_PRODUCT = r.ID_PRODUCT
+                    WHERE p.NAME_PRODUCT = ANY(%s)
+                    GROUP BY p.ID_PRODUCT, p.NAME_PRODUCT, p.GENRE, p.PLATFORM, p.GAME_MODE, p.PRICE
+                    ORDER BY average_rating DESC;
+                """)
+                cur.execute(query, (filtros,))
+            else:
+                query = sql.SQL("""
+                    SELECT 
+                        p.ID_PRODUCT,
+                        p.NAME_PRODUCT,
+                        p.GENRE,
+                        p.PLATFORM,
+                        p.GAME_MODE,
+                        p.PRICE,
+                        ROUND(AVG(r.RATING), 2) AS average_rating
+                    FROM PRODUCT p
+                    JOIN RATING r ON p.ID_PRODUCT = r.ID_PRODUCT
+                    GROUP BY p.ID_PRODUCT, p.NAME_PRODUCT, p.GENRE, p.PLATFORM, p.GAME_MODE, p.PRICE
+                    ORDER BY average_rating DESC;
+                """)
+                cur.execute(query)
 
+            result = cur.fetchall()
             names = [row[1] for row in result]
 
     except Exception as e:
-        print(f"Error to find folk's favorites: {e}")
-        return [], [], []
+        print(f"❌ Erro ao buscar jogos: {e}")
+        return [], []
 
     finally:
         conn.close()
@@ -57,14 +71,13 @@ def all_games():
     for name in names:
         name_lower = name.lower()
         for file in base.iterdir():
-            if name_lower in file.stem.lower(): 
+            if name_lower in file.stem.lower():
                 game_titles.append(file.name)
                 break
         else:
-            game_titles.append("default.jpg") 
+            game_titles.append("default.jpg")
 
     return result, game_titles
-
 
 def User_Login(Username, Password):
     conn = Connect_Base()
