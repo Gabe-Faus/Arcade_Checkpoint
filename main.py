@@ -148,17 +148,14 @@ def cadastro():
 
 
 if __name__ == '__main__':
-    # 1. Inicializar sistema
     print("🚀 Inicializando sistema de recomendação...")
     sistema_recomendacao = inicializar_sistema()
     info = sistema_recomendacao.get_info_sistema()
     print(f"O Sistema está pronto! {info['total_jogos']} jogos carregados")
     
-    # 2. CHAMAR O FORMULÁRIO DO MAIN.PY (para teste em terminal)
     print("\nIniciando formulário de preferências...")
-    preferencias = cadastro()  # ← Isso chama SEU formulário original!
+    preferencias = cadastro()  
     
-    # 3. Converter formato do formulário para o sistema
     generos, plataformas, modos_jogo = preferencias
     
     preferencias_para_sistema = {
@@ -167,11 +164,11 @@ if __name__ == '__main__':
         'modos_jogo': modos_jogo
     }
     
-    # 4. Gerar recomendações
+
     print(Fore.BLUE + f'\nGerando recomendações baseadas no teu perfil...')
     resultado = gerar_recomendacoes(sistema_recomendacao, preferencias_para_sistema, num_recomendacoes=10)
     
-    # 5. Mostrar resultados
+
     if resultado['sucesso']:
         print(Fore.BLUE + f"\n{resultado['total_recomendacoes']} recomendações geradas:")
         for i, rec in enumerate(resultado['recomendacoes'], 1):

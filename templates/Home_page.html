@@ -178,14 +178,14 @@
     </div>
 
     <div class="square">
-        <h2 class="textsquare">Recommended Games for you!</h2>
+    <h2 class="textsquare">Recommended Games for you!</h2>
 
-        {% if erro %}
-            <p style="color:red; text-align:center;">Erro: {{ erro }}</p>
+    {% if erro %}
+        <p style="color:red; text-align:center;">Erro: {{ erro }}</p>
         {% elif combined %}
             <div class="game-grid">
                 {% for jogo, imagem in combined %}
-                    <div class="game-card">
+                    <div class="game-card" onclick="window.location.href='{{ url_for('product_page', product_id=jogo[0]) }}'">
                         <img src="{{ url_for('static', filename=imagem) }}" alt="{{ jogo[1] }}">
                         <div class="game-info">
                             <h3>{{ jogo[1] }}</h3>
@@ -200,6 +200,7 @@
             <p style="text-align:center;">Nenhuma recomendação encontrada.</p>
         {% endif %}
     </div>
+
 
 </body>
 </html>
